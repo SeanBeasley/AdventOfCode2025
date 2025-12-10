@@ -1,59 +1,52 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-if (Current <= Size + 1)
+if (Current <= Size)
 {
 	if (IsPartTwo)
-	{
-		if (Current > Size)
+	{					
+		Value2 = 0;
+		var rowCount = array_length(Rows);
+		for (var i = 0; i < rowCount; i++)
+		{
+			var digit = string_char_at(Rows[i], Current);
+			var realDigit = 0;					
+						
+			//middle of number
+			if (i < rowCount - 1 && digit != " ")
+			{
+				Value2 = Value2 * 10 + real(digit);
+			}
+			//New operator
+			else if (digit == "+" || digit == "*")
+			{
+				CurrentOperator = digit;
+						
+				Value1 = 0;
+				if (digit == "*")
+				{
+					Value1 = 1;
+				}
+			}	
+		}
+		
+		//End of Number column
+		if (Value2 != 0)
 		{
 			if (CurrentOperator == "+")
 			{
 				Value1 += Value2;
-				Value2 = 0;
 			}
 			else
 			{
 				Value1 *= Value2;
-				Value2 = 0;
 			}
 		}
-		else
+		
+		//End of set
+		if (Value2 == 0 || Current == Size)
 		{
-			Value2 = 0;
-			var columns = array_length(Rows);
-			for (var i = 0; i < columns; i++)
-			{
-				var digit = string_char_at(Rows[i], Current);
-				var realDigit = 0;
-			
-				//New operator
-				if (i == columns - 1 && digit != " ")
-				{
-					Sum2 += Value1;
-					CurrentOperator = digit;
-					Value1 = Value2;
-				}
-				//end of number
-				else if (i == columns - 1)
-				{
-					if (CurrentOperator == "+")
-					{
-						Value1 += Value2;
-						Value2 = 0;
-					}
-					else
-					{
-						Value1 *= Value2;
-						Value2 = 0;
-					}
-				}
-				//middle of number
-				else if (digit != " ")
-				{
-					Value2 += power(10, columns-i-2) * real(digit);
-				}
-			}
+			Sum2 += Value1;
 		}
 	}
 	else if (Current < Size-1)
@@ -97,4 +90,4 @@ else if (!IsPartTwo)
 }
 
 //5733696195703
-//6470571 - tool ow
+//10951882745757 - too low
